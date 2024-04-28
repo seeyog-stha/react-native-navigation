@@ -1,13 +1,23 @@
 import { StyleSheet, Text, View,Button } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+import { useLayoutEffect } from 'react'
 export default function About({route}:any) {
+    
     // we can use navigation as a props or we can use a hook called usenavigation 
     const navigation=useNavigation() as any
-
+    
     // destructuring the name send by home 
     const {name}=route.params
+
+
+    // dynamically set stack navigator option 
+    useLayoutEffect(()=>{
+        navigation.setOptions({
+            title:name
+        })
+    },[name,navigation])
+
   return (
     <View>
       <Text>About {name}</Text>
