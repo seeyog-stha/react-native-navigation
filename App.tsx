@@ -1,30 +1,37 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import "react-native-gesture-handler"
 import { NavigationContainer } from '@react-navigation/native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Course from './TabScreen/Course'
+import Profile from './TabScreen/Profile'
+import Icons from './Icons'
+import { AboutStack } from './AppStack'
 
-import DashboardScreen from './DashboardScreen/DashboardScreen'
-import Setting from './DashboardScreen/Setting'
+const Tab=createBottomTabNavigator()
 
-const Drawer =createDrawerNavigator()
 export default function App() {
   return (
-    <NavigationContainer>
-        <Drawer.Navigator>
-            <Drawer.Screen name="Dashboard" component={DashboardScreen} options={{
-                title:"my dashboard",
-                drawerLabel:"kasko dashboard",
-                drawerActiveTintColor:"red",
-                drawerActiveBackgroundColor:"green",
-                drawerContentStyle:{
-                    backgroundColor:"pink"
-                }
-            }}/>
-            <Drawer.Screen name="Setting" component={Setting}/>
-        </Drawer.Navigator>
-    </NavigationContainer>
+   <NavigationContainer>
+        <Tab.Navigator screenOptions={{
+            // tabBarLabelPosition:"beside-icon"
+            tabBarLabelPosition:"below-icon",
+            tabBarShowLabel:true,
+            tabBarActiveTintColor:"purple",
+            tabBarInactiveTintColor:"orange",
+        }}>
+           < Tab.Screen name="Course" component={Course}
+           options={{
+            tabBarLabel:"my course",
+            tabBarIcon:({color})=><Icons name="circle" color={color}/>,  
+            tabBarBadge:4          
+        }}
+        
+           />
+           < Tab.Screen name="Profile" component={Profile}/>
+           < Tab.Screen name="About stack" component={AboutStack} options={{headerShown:false}}/>
+        </Tab.Navigator>
+   </NavigationContainer>
   )
 }
 
